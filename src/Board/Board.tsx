@@ -40,7 +40,7 @@ function getBoardCell(state: BoardState, id: number): string {
 function calcWinner(state: BoardState): Player | null {
     for (const combination of possibleWinningCombinations) {
         const [a, b, c] = combination;
-        if (state.board[a] === state.board[b] && state.board[a] === state.board[c] && state.board[a] !== "") {
+        if (state.board[a] !== "" && state.board[a] === state.board[b] && state.board[a] === state.board[c]) {
             return state.board[a] as Player;
         }
     }
