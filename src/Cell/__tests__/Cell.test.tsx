@@ -4,7 +4,7 @@ import Cell from '../Cell';
 describe('renders learn react link', () => {
   it("should be rendered", () => {
     let value = 0;
-    render(<Cell onClick={() => value = value + 1} value='test'/>);
+    render(<Cell id={1} onClick={() => value = value + 1} value='test'/>);
     const valueElement = screen.findAllByDisplayValue(/test/i);
     expect(valueElement).not.toBeNull()
   })
