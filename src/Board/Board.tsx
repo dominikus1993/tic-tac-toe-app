@@ -18,7 +18,8 @@ const defaultBoard: Board = {
 type BoardState = {
     board: Board,
     currentPlayer: Player,
-    winner: Player | null
+    winner: Player | null,
+    status: string
 }
 
 const possibleWinningCombinations = [
@@ -60,8 +61,7 @@ function canMove(state: BoardState, id: number): boolean {
 
 
 export default function Board() {
-    let [status, setStatus] = useState("Next player: X")
-    let [board, setBoard] = useState({ board: { ...defaultBoard }, currentPlayer: "X", winner: null } as BoardState)
+    let [board, setBoard] = useState({ board: { ...defaultBoard }, currentPlayer: "X", winner: null, status: "Next player: X" } as BoardState)
 
     function handleClick(id: number) {
         if (!canMove(board, id)) {
@@ -74,17 +74,17 @@ export default function Board() {
 
         newBoard.winner = calcWinner(newBoard);
 
-        setBoard(newBoard)
-
         if (newBoard.winner !== null) {
-            setStatus("Winner: " + newBoard.winner)
+            newBoard.status = "Winner: " + newBoard.winner
         } else {
-            setStatus("Next player: " + newBoard.currentPlayer)
+            newBoard.status = "Next player: " + newBoard.currentPlayer
         }
+
+        setBoard(newBoard)
     }
 
     return<>
-        <div>{status}</div>
+        <div>{board.status}</div>
         <table>
             <tr>
                 <td><Cell id={0} onClick={(id) => handleClick(id)} value={getBoardCell(board, 0)}></Cell></td>
